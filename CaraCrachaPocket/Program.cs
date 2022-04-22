@@ -6,11 +6,8 @@ using QuestPDF.Infrastructure;
 using QuestPDF.Previewer;
 using SkiaSharp;
 
-// static method definition
-// FontManager.RegisterFontType(Stream fontDataStream);
-
-// perform similar invocation only once, when the application starts or during its initialization step
-FontManager.RegisterFontType("Calibri", File.OpenRead("../../../font/calibri.ttf")); // use file name
+FontManager.RegisterFontType("Calibri", File.OpenRead("../../../font/calibri.ttf"));
+FontManager.RegisterFontType("CalibriBold", File.OpenRead("../../../font/calibrib.ttf"));
 
 // code in your main method
 var document = Document.Create(container =>
@@ -42,17 +39,49 @@ var document = Document.Create(container =>
                 }));
                 
                 // layer header
-                layers.PrimaryLayer().Canvas((canvas, space) =>
+                layers.Layer().Canvas((canvas, space) =>
+                    {
+                        using var paint = new SKPaint
+                        {
+                            Color = SKColor.Parse("#18202f"),
+                        };
+
+                        canvas.DrawRect(0, 0, space.Width, space.Height / 3, paint);
+                    });
+
+                // write header layer
+                layers.PrimaryLayer()
+                    .PaddingLeft(60)
+                    .PaddingTop(20)
+                    .Text("Digite aqui seu nome e sobrenome")
+                    .FontSize(16).FontColor("#00c0d0")
+                    .Bold();
+
+                layers.Layer()
+                    .PaddingLeft(60)
+                    .PaddingTop(60)
+                    .Text("Digite aqui a cidade/estado que mora")
+                    .FontSize(16).FontColor(Colors.White)
+                    .Bold();
+
+                layers.Layer()
+                    .PaddingLeft(60)
+                    .PaddingTop(100)
+                    .Text("Digite aqui a area que ira trabalhar")
+                    .FontSize(16).FontColor(Colors.White);
+
+                // line layer
+                layers.Layer().Canvas((canvas, space) =>
                 {
                     using var paint = new SKPaint
                     {
-                        Color = SKColor.Parse("#18202f"),
+                        Color = SKColor.Parse("#f05480"),
+                        StrokeWidth = 4,
                     };
 
-                    canvas.DrawRect(0, 0, space.Width, space.Height / 3, paint);
+                    canvas.DrawLine(space.Width / 20, 0, space.Width / 20, space.Height / 2, paint);
                 });
-
-      
+                
                 // user layer
                 layers.Layer().Canvas(((canvas, space) =>
                 {
@@ -63,9 +92,8 @@ var document = Document.Create(container =>
 
                     canvas.DrawRect(space.Width - 220,  0, space.Width / 4 + 50, (space.Height / 3) * 2 - 50, paint);
                 }));
-                
-                //text area layer
-                // user layer
+               
+                // text layer
                 layers.Layer().Canvas(((canvas, space) =>
                 {
                     using var paint = new SKPaint
@@ -75,10 +103,24 @@ var document = Document.Create(container =>
                         StrokeWidth = 2,
                     };
 
-                    canvas.DrawRect(60, space.Height / 3 + 30, (space.Width / 8) * 3, space.Height / 6, paint);
-                    canvas.DrawRect(60, space.Height / 3 + 130, (space.Width / 8) * 3, space.Height / 10, paint);
-                    canvas.DrawRect(60, space.Height / 3 + 210, (space.Width / 8) * 3, space.Height / 10, paint);
+                    canvas.DrawRect(60, space.Height / 3 + 30, (space.Width / 9) * 4, space.Height / 6, paint);
+                    canvas.DrawRect(60, space.Height / 3 + 130, (space.Width / 9) * 4, space.Height / 10, paint);
+                    canvas.DrawRect(60, space.Height / 3 + 210, (space.Width / 9) * 4, space.Height / 10, paint);
                 }));
+
+                // write text layer
+                layers.Layer()
+                    .PaddingLeft(70)
+                    .PaddingTop(170)
+                    .Text("Digite aqui seu nome e sobrenome")
+                    .FontSize(16).FontColor("#00c0d0")
+                    .Bold();
+                
+
+                
+           
+
+
             });
 
 

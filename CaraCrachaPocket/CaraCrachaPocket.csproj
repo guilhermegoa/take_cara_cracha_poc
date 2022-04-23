@@ -9,9 +9,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="QuestPDF" Version="2022.4.1"/>
-        <PackageReference Include="SkiaSharp.NativeAssets.Linux" Version="2.88.0-preview.254"/>
-        <PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="2.88.0-preview.254"/>
+        <PackageReference Include="QuestPDF" Version="2022.4.1" />
+        <PackageReference Include="SkiaSharp.NativeAssets.Linux" Version="2.88.0-preview.254" />
+        <PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="2.88.0-preview.254" />
     </ItemGroup>
     
 </Project>

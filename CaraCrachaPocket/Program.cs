@@ -1,13 +1,9 @@
-﻿using System.Security.Cryptography;
-using QuestPDF.Drawing;
+﻿using QuestPDF.Drawing;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
-using QuestPDF.Infrastructure;
-using QuestPDF.Previewer;
 using SkiaSharp;
 
 FontManager.RegisterFontType("Calibri", File.OpenRead("../../../font/calibri.ttf"));
-FontManager.RegisterFontType("CalibriBold", File.OpenRead("../../../font/calibrib.ttf"));
 
 // code in your main method
 var document = Document.Create(container =>
@@ -17,8 +13,6 @@ var document = Document.Create(container =>
         //base config
         page.Size(PageSizes.A5.Landscape());
         page.Background(Colors.White);
-        // page.Margin(2, Unit.Centimetre);
-        // page.DefaultTextStyle(x => x.FontSize(20));
         
         //content
         page.Content()
@@ -115,45 +109,9 @@ var document = Document.Create(container =>
                     .Text("Digite aqui seu nome e sobrenome")
                     .FontSize(16).FontColor("#00c0d0")
                     .Bold();
-                
-
-                
-           
-
-
             });
-
-
-        // page.Header()
-        //     .Text("Hello PDFfff!")
-        //     .FontFamily("Calibri")
-        //     .SemiBold().FontSize(36).FontColor(Colors.Blue.Medium);
-
-        // page.Content()
-        //     .PaddingVertical(1, Unit.Centimetre)
-        //     .Column(x =>
-        //     {
-        //         x.Spacing(20);
-        //
-        //         x.Item().Text(Placeholders.LoremIpsum()).FontFamily("Calibri");
-        //         x.Item().Image(Placeholders.Image(200, 100));
-        //     });
-
-        // page.Footer()
-        //     .AlignCenter()
-        //     .Text(x =>
-        //     {
-        //         x.Span("Page ").FontFamily("Calibri");
-        //         x.CurrentPageNumber().FontFamily("Calibri");
-        //     });
     });
 });
 
 // instead of the standard way of generating a PDF file
 document.GeneratePdf("hello.pdf");
-
-// use the following invocation
-// document.ShowInPreviewer();
-
-// optionally, you can specify an HTTP port to communicate with the previewer host (default is 12500)
-// document.ShowInPreviewer(12345);

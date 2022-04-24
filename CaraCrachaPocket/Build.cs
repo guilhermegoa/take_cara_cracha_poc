@@ -162,7 +162,7 @@ public class Build : IDocument
                     .FontColor(Colors.Black);
 
                 layers.Layer()
-                    .TranslateX(baseOffsetWidth * 12 + 20)
+                    .TranslateX(baseOffsetWidth * 12 + 10)
                     .TranslateY(baseOffsetHeight * 7)
                     .Width(baseOffsetWidth * 6)
                     .Height(baseOffsetHeight * 5)
@@ -170,18 +170,23 @@ public class Build : IDocument
                     .Text("Deixe aqui uma mensagem de até 10 palavras pra os Take.seres!")
                     .FontSize(16)
                     .FontColor(Colors.Black);
+                
             });
 
-            //User image layer
-            byte[] imageData = File.ReadAllBytes("../../../images/photo.png");
+            //Images layer
             columns.Item()
-                .TranslateX(baseOffsetWidth * 13 - 30)
-                .TranslateY(-baseOffsetHeight * 9)
                 .Width(baseOffsetWidth * 7)
                 .Height(baseOffsetHeight * 10)
-                .Border(2)
-                .BorderColor("#0eb7c5")
-                .Image(imageData, ImageScaling.Resize);
-        });
+                .Layers(layers =>
+                {
+                    byte[] imageData = File.ReadAllBytes("../../../images/photo.png");
+                    layers.PrimaryLayer()
+                        .TranslateX(baseOffsetWidth * 13 - 30)
+                        .TranslateY(-baseOffsetHeight * 10)
+                        .Border(2)
+                        .BorderColor("#0eb7c5")
+                        .Image(imageData, ImageScaling.Resize);
+                });
+            });
     }
 }
